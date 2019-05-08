@@ -1,0 +1,29 @@
+version: 1.0
+configuration: 
+  has_webserver: true
+  readonly_paths:
+    - manage.py
+    - Put the test files in here so that the candidate will not be able to edit them.
+    - app/test.js
+    - app/tests/*
+  scoring:
+    command: (string)
+      - [required] Scoring command is defined here. 
+      - This attribute must be provided for scoring to work
+    files: (array)
+      - [optional] A list of scoring output files can be provided here.
+      - Once the scoring command is run, the platform will search for these files and parse them to calculate the final score.
+      - If these files are not provided, the scoring command output is used for scoring.
+    testcase_weights: (hash [<testcase name>:<weight>])
+      - [optional] This attribute can be used to provide weighted scoring for test cases.
+      - The sum total of all weights should be 1. Validation will fail if the sum total of all weights is not one.
+      - The test case weights are matched by test case name, so all test case names should be unique (across files).
+  ide_config: (hash)
+    - [required] All IDE related configuration is provided here
+    default_open_files: (array)
+      - [required] Provide a list of default files to open here. Path should be relative to project root folder.
+      - Those are the files that will be opened for the candidate when taking the test, no?
+    project_menu:
+      run: python manage.py runserver
+      install: pip install -r requirements.txt
+      test: python manage.py test
